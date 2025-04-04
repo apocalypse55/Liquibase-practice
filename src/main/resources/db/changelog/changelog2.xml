@@ -56,5 +56,25 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="add_column_emp_table" author="shardool">
+        <preConditions onFail="WARN">
+            <and>
+                <tableExists tableName="emp"/>
+                <not>
+                    <columnExists tableName="emp" columnName="emp_salary"/>
+
+                </not>
+                <sqlCheck expectedResult="4">
+                    SELECT COUNT(1) FROM emp
+                </sqlCheck>
+            </and>
+        </preConditions>
+        <addColumn tableName="emp"
+                   schemaName="public">
+            <column name="emp_salary"
+            type="bigint"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>
