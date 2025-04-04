@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="shardool" id="emp_table:0.1.0.1" >
+        <createTable tableName="emp" schemaName="public">
+            <column name="emp_id"  type="bigint" />
+            <column name="dept_id"  type="bigint" />
+            <column name="emp_name" type="varchar(100)" />
+            <column name="emp_role" type="varchar(100)" />
+
+        </createTable>
+        <sql>
+            ALTER TABLE public.emp OWNER to postgres;
+            GRANT ALL PRIVILEGES ON TABLE public.emp TO postgres;
+        </sql>
+
+    </changeSet>
+
+    <changeSet  author="shardool"  id="addPrimaryKey_dept:0.1.0.1">
+        <addPrimaryKey
+                        columnNames="dept_id"
+                        constraintName="pk_dept"
+                        schemaName="public"
+                        tableName="dept"
+                        />
+    </changeSet>
+
+    <changeSet  author="shardool"  id="addPrimaryKey_emp:0.1.0.1">
+        <addPrimaryKey
+                columnNames="emp_id"
+                constraintName="pk_emp"
+                schemaName="public"
+                tableName="emp"
+        />
+    </changeSet>
+    <changeSet  author="shardool"  id="addForeignKeyConstraint_emp:0.1.0.1">
+        <addForeignKeyConstraint  baseColumnNames="dept_id"
+                                  baseTableName="emp"
+                                  baseTableSchemaName="public"
+                                  constraintName="fk_emp_dept"
+                                  referencedColumnNames="dept_id"
+                                  referencedTableName="dept"
+                                  referencedTableSchemaName="public"/>
+    </changeSet>
+
+
+    <changeSet author="shardool" id="create-index-emp:0.1.0.1">
+        <createIndex
+                     indexName="index_emp"
+                     schemaName="public"
+                     tableName="emp">
+            <column name="emp_name"/>
+            <column name="emp_role"/>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>

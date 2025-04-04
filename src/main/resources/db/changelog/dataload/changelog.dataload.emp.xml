@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="shardool" id="loadUpdateData-emp:0.1.1.2">
+    <loadUpdateData
+            file="data/emp.csv"
+            primaryKey="emp_id,dept_id"
+            relativeToChangelogFile="true"
+            schemaName="public"
+            tableName="emp">
+        <column  name="emp_id" type="NUMERIC"/>
+        <column  name="dept_id" type="NUMERIC"/>
+        <column  name="emp_name" type="STRING"/>
+        <column  name="emp_role" type="STRING"/>
+    </loadUpdateData>
+</changeSet>
+</databaseChangeLog>
